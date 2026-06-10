@@ -1,0 +1,326 @@
+/* PASSO 1: CONFIGURAÇÃO DE VARIÁVEIS */
+:root {
+    /* Cores relacionadas à sustentabilidade e meio ambiente */
+    --bg-body: #f5f7f2;          /* Fundo claro com tom natural */
+    --bg-header: #2e7d32;        /* Verde floresta */
+    --text-header: #ffffff;
+
+    --bg-highlight: #8bc34a;     /* Verde claro para destaques */
+    --text-highlight: #1b5e20;   /* Verde escuro para contraste */
+
+    --border-color: #a5b59a;     /* Verde acinzentado suave */
+
+    --bg-btn: #388e3c;           /* Verde agrícola */
+    --text-btn: #ffffff;
+    --bg-btn-hover: #1b5e20;     /* Verde mais escuro */
+
+    /* Outras Variáveis Globais */
+    --border-style: solid;
+    --border-width: 2px;
+    --border-radius: 8px;
+
+    --font-base-size: 16px;
+
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+
+    --shadow-soft: 0 4px 6px rgba(46, 125, 50, 0.12);
+    --shadow-hover: 0 10px 15px rgba(46, 125, 50, 0.20);
+
+    --transition-speed: 0.3s;
+    --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* Modo Alto Contraste (Alternado via JS) */
+body.dark-contrast {
+    --bg-body: #121212;
+    --bg-header: #000000;
+    --text-header: #ffffff;
+    --bg-highlight: #1e1e1e;
+    --text-highlight: #ffffff;
+    --border-color: #ffffff;
+    --bg-btn: #ffffff;
+    --text-btn: #000000;
+    --bg-btn-hover: #cccccc;
+    --text-link: #4da6ff;
+}
+
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-body);
+    font-family: var(--font-family);
+    font-size: var(--font-base-size);
+    color: #1a1a1a;
+    line-height: 1.6;
+    transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+body.dark-contrast, 
+body.dark-contrast .highlight-section, 
+body.dark-contrast p, 
+body.dark-contrast h1, 
+body.dark-contrast h2, 
+body.dark-contrast h3,
+body.dark-contrast label {
+    color: var(--text-highlight) !important;
+}
+
+a {
+    color: var(--text-link);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--spacing-sm) 0;
+}
+
+/* BOTÕES E LINKS */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--bg-btn);
+    color: var(--text-btn);
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color var(--transition-speed) ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--bg-btn-hover);
+    color: #fff; /* Forçando legibilidade no hover escuro */
+    transform: translateY(-2px);
+    text-decoration: none;
+}
+
+/* CABEÇALHO */
+.main-header {
+    background-color: var(--bg-header);
+    color: var(--text-header);
+    padding: var(--spacing-sm) 0;
+    border-bottom: var(--border-width) var(--border-style) var(--border-color);
+    text-align: center;
+}
+
+.main-header h1 {
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-weight: 800;
+}
+
+/* DESTAQUES (SEÇÕES COM AZUL ROYAL) */
+.highlight-section {
+    background-color: var(--bg-highlight);
+    color: var(--text-header);
+    border-top: var(--border-width) var(--border-style) var(--border-color);
+    border-bottom: var(--border-width) var(--border-style) var(--border-color);
+    padding: var(--spacing-md) 0;
+}
+
+/* HERO SECTION */
+.hero-section {
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+}
+
+.hero-section h2 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin-bottom: var(--spacing-sm);
+}
+
+.hero-section p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    max-width: 800px;
+    margin: 0 auto var(--spacing-md);
+}
+
+/* SEÇÃO DE NARRATIVA */
+.narrative-text p {
+    margin-bottom: 1.2rem;
+    text-align: justify;
+    font-size: 1.1rem;
+}
+
+/* ACORDEÃO (PRÁTICAS SUSTENTÁVEIS) */
+.practices-section {
+    padding: var(--spacing-md) 0;
+}
+
+.accordion-item {
+    background-color: rgba(255,255,255,0.5);
+    border: var(--border-width) var(--border-style) var(--border-color);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing-sm);
+    overflow: hidden;
+}
+
+body.dark-contrast .accordion-item {
+    background-color: transparent;
+}
+
+.accordion-header {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 1rem 1.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: inherit;
+    transition: background-color var(--transition-speed);
+}
+
+.accordion-header:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    padding: 0 1.5rem;
+    transition: max-height var(--transition-speed) ease-out, padding var(--transition-speed) ease;
+}
+
+.accordion-content p {
+    padding-bottom: 1rem;
+}
+
+.accordion-item.active .accordion-content {
+    padding-top: 1rem;
+}
+
+/* IMAGENS RESPONSIVAS */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+}
+
+.imagem {
+    border: var(--border-width) var(--border-style) var(--border-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    transition: box-shadow var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+.imagem:hover {
+    box-shadow: var(--shadow-hover);
+    transform: scale(1.02);
+}
+
+.imagem img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    aspect-ratio: 16/9;
+}
+
+/* GRID FORMULÁRIO E COMENTÁRIOS */
+.grid-2-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.grid-address {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: var(--border-width) var(--border-style) var(--border-color);
+    border-radius: var(--border-radius);
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: rgba(255,255,255,0.9);
+}
+
+body.dark-contrast input, body.dark-contrast textarea {
+    background-color: #333;
+    color: #fff;
+}
+
+/* RODAPÉ */
+.main-footer {
+    text-align: center;
+    padding: var(--spacing-md) 0;
+}
+
+.referencias {
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 1rem;
+}
+
+/* MENU DE ACESSIBILIDADE FLUTUANTE */
+.accessibility-panel {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border-radius: 8px 0 0 8px;
+    z-index: 1000;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+}
+
+.accessibility-panel button {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #555;
+    margin: 0.2rem 0;
+    padding: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.accessibility-panel button:hover {
+    background-color: var(--bg-highlight);
+}
