@@ -1,33 +1,27 @@
 /* PASSO 1: CONFIGURAÇÃO DE VARIÁVEIS */
 :root {
-    /* Cores relacionadas à sustentabilidade e meio ambiente */
-    --bg-body: #f5f7f2;          /* Fundo claro com tom natural */
-    --bg-header: #2e7d32;        /* Verde floresta */
-    --text-header: #ffffff;
-
-    --bg-highlight: #8bc34a;     /* Verde claro para destaques */
-    --text-highlight: #1b5e20;   /* Verde escuro para contraste */
-
-    --border-color: #a5b59a;     /* Verde acinzentado suave */
-
-    --bg-btn: #388e3c;           /* Verde agrícola */
-    --text-btn: #ffffff;
-    --bg-btn-hover: #1b5e20;     /* Verde mais escuro */
-
+    /* Cores Institucionais */
+    --bg-body: rgb(176, 224, 230);
+    --bg-header: rgb(0, 128, 0);
+    --text-header: rgb(0, 0, 0);
+    --bg-highlight: rgb(65, 105, 225);
+    --text-highlight: rgb(0, 0, 0);
+    --border-color: rgb(112, 128, 144);
+    --bg-btn: rgb(0, 100, 0);
+    --text-btn: rgb(0, 0, 0);
+    --bg-btn-hover: rgb(139, 0, 0);
+    --text-link: rgb(0, 0, 205);
+    
     /* Outras Variáveis Globais */
     --border-style: solid;
     --border-width: 2px;
     --border-radius: 8px;
-
     --font-base-size: 16px;
-
     --spacing-sm: 1rem;
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
-
-    --shadow-soft: 0 4px 6px rgba(46, 125, 50, 0.12);
-    --shadow-hover: 0 10px 15px rgba(46, 125, 50, 0.20);
-
+    --shadow-soft: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 10px 15px rgba(0, 0, 0, 0.2);
     --transition-speed: 0.3s;
     --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
@@ -73,9 +67,13 @@ body.dark-contrast h1,
 body.dark-contrast h2, 
 body.dark-contrast h3,
 body.dark-contrast label {
-    color: var(--text-highlight) !important;
+    color: var(--text-highlight);
 }
 
+/* Trecho da IA*/
+p {
+    font-size: 1rem;
+}
 a {
     color: var(--text-link);
     text-decoration: none;
@@ -90,12 +88,23 @@ a:hover {
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: var(--spacing-sm) 0;
+    padding: var(--spacing-sm) 20px;
+
+    /* Novas linhas para centralizar o conteúdo interno: */
+    display: flex;
+    flex-direction: column;   /* Alinha os elementos um abaixo do outro */
+    align-items: center;      /* Centraliza horizontalmente tudo o que está dentro */
+    text-align: center;       /* Garante que as linhas de texto também fiquem centralizadas */
 }
 
 /* BOTÕES E LINKS */
 .btn-primary {
-    display: inline-block;
+    display: block;
+    margin: 0 auto;
+    margin-top: 3%;    
+    /* Adicione uma largura máxima ou tire o width para ele não ocupar a tela toda */
+    width: max-content;
+
     background-color: var(--bg-btn);
     color: var(--text-btn);
     padding: 0.8rem 1.5rem;
@@ -125,7 +134,7 @@ a:hover {
 }
 
 .main-header h1 {
-    font-size: clamp(1.2rem, 3vw, 2rem);
+    font-size: 1.5rem;
     font-weight: 800;
 }
 
@@ -145,20 +154,42 @@ a:hover {
 }
 
 .hero-section h2 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-size: 2.2rem;
     margin-bottom: var(--spacing-sm);
+    
 }
 
 .hero-section p {
-    font-size: clamp(1rem, 2vw, 1.25rem);
-    max-width: 800px;
+    font-size: 1.1rem;
+    max-width: 1000px; /* Aumentou o espaço horizontal do texto */
     margin: 0 auto var(--spacing-md);
 }
 
+.hero-content h2 {
+    font-size: 2rem;
+    text-align: center;
+    line-height: 1;
+    padding: var(--spacing-sm) 20px;
+    margin-bottom: var(--spacing-md);
+}
+
+
+.hero-content {
+    text-align: justify;
+}
+
 /* SEÇÃO DE NARRATIVA */
+#narrative-text-title{
+    font-size:2.2rem;
+    text-align: center;
+    line-height: 1;
+    padding: var(--spacing-sm) 20px;
+    margin-bottom: var(--spacing-md);
+}
 .narrative-text p {
     margin-bottom: 1.2rem;
     text-align: justify;
+    max-width: 1000px; /* Aumentou o espaço horizontal do texto */
     font-size: 1.1rem;
 }
 
@@ -281,12 +312,28 @@ body.dark-contrast input, body.dark-contrast textarea {
     color: #fff;
 }
 
+.practices-section h2 { 
+    font-size: 2.2rem !important; 
+}
+
+.form-container h2, .comments-container h2 { 
+    font-size: 1.4rem; 
+}
+.form-group label, input, textarea { 
+    font-size: 1.4rem; 
+}
+
 /* RODAPÉ */
 .main-footer {
     text-align: center;
     padding: var(--spacing-md) 0;
 }
 
+.container h3 {
+    color: black;
+    margin: 0;
+    line-height: 1;
+}
 .referencias {
     margin-top: var(--spacing-sm);
     font-size: 0.9rem;
@@ -297,7 +344,7 @@ body.dark-contrast input, body.dark-contrast textarea {
 /* MENU DE ACESSIBILIDADE FLUTUANTE */
 .accessibility-panel {
     position: fixed;
-    right: 0;
+    right: 1%;
     top: 50%;
     transform: translateY(-50%);
     background-color: #333;
@@ -319,8 +366,29 @@ body.dark-contrast input, body.dark-contrast textarea {
     font-weight: bold;
     border-radius: 4px;
     transition: background 0.2s;
+    font-size: inherit; /* <-- Adicione essa linha aqui */
 }
 
 .accessibility-panel button:hover {
     background-color: var(--bg-highlight);
+}
+
+@media (max-width: 768px) {
+    .accessibility-panel {
+        top: auto !important;          /* Garante a anulação do 'top: 50%' do desktop */
+        right: 50% !important;         /* Move a borda para a metade da tela */
+        bottom: 2% !important;         /* Fixa na parte inferior */
+        
+        /* CORREÇÃO AQUI: Reseta o Y antigo (-50%) e centraliza o X (50%) na mesma linha */
+        transform: translate(50%, 0) !important; 
+        
+        flex-direction: row !important;/* Deita os botões lado a lado */
+        border-radius: 8px !important; /* Arredonda todos os cantos */
+        padding: 0.3rem !important;
+        width: max-content !important; 
+    }
+
+    .accessibility-panel button {
+        margin: 0 0.2rem !important;   /* Afasta os botões horizontalmente */
+    }
 }

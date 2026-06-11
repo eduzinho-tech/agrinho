@@ -46,10 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const adjustFontSize = (increment) => {
         currentFontSize += increment;
         // Limita entre 80% e 150% para não quebrar o layout
-        if(currentFontSize > 150) currentFontSize = 150;
-        if(currentFontSize < 80) currentFontSize = 80;
+        if(currentFontSize > 250) currentFontSize = 250;
+        if(currentFontSize < 100) currentFontSize = 100;
         
-        document.body.style.fontSize = `${currentFontSize}%`;
+        // Altere de document.body para document.documentElement (que representa o <html>)
+        document.documentElement.style.fontSize = `${currentFontSize}%`;
     };
 
     btnIncreaseFont.addEventListener('click', () => adjustFontSize(10));
@@ -99,5 +100,37 @@ document.addEventListener('DOMContentLoaded', () => {
         btnRead.style.display = 'none';
         btnStopRead.style.display = 'none';
         console.warn('API SpeechSynthesis não suportada neste navegador.');
+    }
+});
+
+// EXIBIR COMENTÁRIO NA TELA AO ENVIAR
+document.querySelector('.interaction-section .btn-primary').addEventListener('click', function(event) {
+    event.preventDefault(); // Impede a página de recarregar e sumir com o texto
+
+    // 1. Pega o que o usuário digitou na área de texto
+    const campoTexto = document.getElementById('comentario');
+    const textoComentario = campoTexto.value.trim();
+
+    // 2. Se não estiver vazio, cria o comentário na tela
+    if (textoComentario !== "") {
+        const display = document.getElementById('comments-display');
+
+        // Cria uma caixinha para o novo comentário
+        const novoComentario = document.createElement('div');
+        novoComentario.style.background = 'rgba(255, 255, 255, 0.8)';
+        novoComentario.style.padding = '1rem';
+        novoComentario.style.borderRadius = '8px';
+        novoComentario.style.marginBottom = '1rem';
+        novoComentario.style.border = '1px solid var(--border-color)';
+        novoComentario.style.color = '#000';
+        
+        // Coloca o texto dentro dela
+        novoComentario.textContent = textoComentario;
+
+        // Adiciona a caixinha dentro do seu <div id="comments-display">
+        display.appendChild(novoComentario);
+
+        // Limpa a área de texto para o usuário digitar outro se quiser
+        campoTexto.value = "";
     }
 });
