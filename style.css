@@ -393,7 +393,7 @@ body.dark-contrast input, body.dark-contrast textarea {
     }
 }
 
-.hero-content {
+title {
     animation: floatEffect 6s ease-in-out infinite;
 }
 
