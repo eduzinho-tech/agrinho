@@ -393,20 +393,15 @@ body.dark-contrast input, body.dark-contrast textarea {
     }
 }
 
-/* Adicione isso ao seu CSS */
-.hero-section h2, .hero-section p {
-    animation: revealText 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+.hero-section {
+    position: relative;
+    overflow: hidden;
+    /* Adicione um background com gradiente radial sutil */
+    background: radial-gradient(circle at 50% 50%, var(--bg-highlight), var(--bg-body));
+    animation: pulseBackground 8s ease-in-out infinite alternate;
 }
 
-@keyframes revealText {
-    0% {
-        opacity: 0;
-        filter: blur(10px);
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateY(0);
-    }
+@keyframes pulseBackground {
+    0% { transform: scale(1); filter: brightness(1); }
+    100% { transform: scale(1.05); filter: brightness(1.1); }
 }
