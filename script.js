@@ -1,17 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    /* --- 1. Lógica do Accordion (Caixas Expansíveis) --- */
-    const accordionItems = document.querySelectorAll('.accordion-item');
 
+    /* --- 1. Lógica do Accordion --- */
+    const accordionItems = document.querySelectorAll('.accordion-item');
     accordionItems.forEach(item => {
         const header = item.querySelector('.accordion-header');
-        
         header.addEventListener('click', () => {
             const content = item.querySelector('.accordion-content');
             const icon = item.querySelector('.icon');
             const isActive = item.classList.contains('active');
 
-            // Fecha todos antes de abrir o atual (Opcional: remover para permitir múltiplos abertos)
             document.querySelectorAll('.accordion-item').forEach(otherItem => {
                 otherItem.classList.remove('active');
                 otherItem.querySelector('.accordion-content').style.maxHeight = null;
@@ -26,9 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --- 2. Prevenção de envio real dos formulários para demonstração --- */
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
+    /* --- 2. Prevenção de envio de formulários --- */
+    document.querySelectorAll('form').forEach(form => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             alert('Ação registrada com sucesso! (Modo de demonstração)');
@@ -36,101 +32,100 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --- 3. Sistema de Acessibilidade Avançado --- */
-    
-    // 3.1 Tamanho da Fonte
+    /* --- 3. Sistema de Acessibilidade --- */
     const btnIncreaseFont = document.getElementById('btn-increase-font');
     const btnDecreaseFont = document.getElementById('btn-decrease-font');
-    let currentFontSize = 100; // Porcentagem
+    let currentFontSize = 100;
 
     const adjustFontSize = (increment) => {
-        currentFontSize += increment;
-        // Limita entre 80% e 150% para não quebrar o layout
-        if(currentFontSize > 250) currentFontSize = 250;
-        if(currentFontSize < 100) currentFontSize = 100;
-        
-        // Altere de document.body para document.documentElement (que representa o <html>)
+        currentFontSize = Math.min(Math.max(currentFontSize + increment, 100), 250);
         document.documentElement.style.fontSize = `${currentFontSize}%`;
     };
 
-    btnIncreaseFont.addEventListener('click', () => adjustFontSize(10));
-    btnDecreaseFont.addEventListener('click', () => adjustFontSize(-10));
+    if (btnIncreaseFont) btnIncreaseFont.addEventListener('click', () => adjustFontSize(10));
+    if (btnDecreaseFont) btnDecreaseFont.addEventListener('click', () => adjustFontSize(-10));
 
-    // 3.2 Alternância de Contraste
     const btnContrast = document.getElementById('btn-contrast');
-    btnContrast.addEventListener('click', () => {
-        document.body.classList.toggle('dark-contrast');
-    });
+    if (btnContrast) btnContrast.addEventListener('click', () => document.body.classList.toggle('dark-contrast'));
 
-    // 3.3 Text-to-Speech (Leitura de Voz)
+    /* --- 3.3 Text-to-Speech --- */
     const btnRead = document.getElementById('btn-read');
     const btnStopRead = document.getElementById('btn-stop-read');
-    
-    // Verifica suporte do navegador
-    if ('speechSynthesis' in window) {
-        
+    if ('speechSynthesis' in window && btnRead && btnStopRead) {
         btnRead.addEventListener('click', () => {
-            window.speechSynthesis.cancel(); // Para qualquer leitura anterior
+            window.speechSynthesis.cancel();
+            const textToRead = Array.from(document.querySelectorAll('main h2, main p, footer p'))
+                .map(el => el.textContent).join('. ');
+            const utterance = new SpeechSynthesisUtterance(textToRead);
+            utterance.lang = 'pt-BR';
+            window.speechSynthesis.speak(utterance);
+        });
+        btnStopRead.addEventListener('click', () => window.speechSynthesis.cancel());
+    }
 
-            // Seleciona APENAS títulos e parágrafos dentro de main e do footer textual
-            const readableElements = document.querySelectorAll('main h2, main p, footer p');
-            let textToRead = '';
-
-            readableElements.forEach(el => {
-                // Filtra conteúdo não desejado (ex: textos de placeholder ou prompts estáticos)
-                if(!el.textContent.includes('[PROMPT')) {
-                    textToRead += el.textContent + '. ';
-                }
-            });
-
-            if (textToRead.trim() !== '') {
-                const utterance = new SpeechSynthesisUtterance(textToRead);
-                utterance.lang = 'pt-BR';
-                utterance.rate = 1.0; // Velocidade de leitura normal
-                window.speechSynthesis.speak(utterance);
+    /* --- 4. Exibir comentário --- */
+    const commentBtn = document.querySelector('.interaction-section .btn-primary');
+    if (commentBtn) {
+        commentBtn.addEventListener('click', function(event) {
+            event.preventDefault();
+            const campoTexto = document.getElementById('comentario');
+            if (campoTexto.value.trim() !== "") {
+                const display = document.getElementById('comments-display');
+                const novoComentario = document.createElement('div');
+                novoComentario.style.cssText = 'background: rgba(255, 255, 255, 0.8); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border: 1px solid var(--border-color); color: #000;';
+                novoComentario.textContent = campoTexto.value;
+                display.appendChild(novoComentario);
+                campoTexto.value = "";
             }
         });
+    }
 
-        btnStopRead.addEventListener('click', () => {
-            window.speechSynthesis.cancel();
+    /* --- 5. Máquina de Escrever --- */
+    const elementoTexto = document.querySelector('.hero-description');
+    if (elementoTexto) {
+        const texto = elementoTexto.textContent.replace(/\s+/g, ' ').trim();
+        let indexLetra = 0;
+        function digitar() {
+            if (indexLetra < texto.length) {
+                elementoTexto.textContent = texto.substring(0, indexLetra + 1);
+                indexLetra++;
+                setTimeout(digitar, 60);
+            } else {
+                setTimeout(() => { elementoTexto.textContent = ''; indexLetra = 0; setTimeout(digitar, 800); }, 4000);
+            }
+        }
+        digitar();
+    }
+
+    /* --- 6. Sistema de Zoom de Imagens (SUBSTITUA PELO SEU ATUAL) --- */
+    const imagens = document.querySelectorAll('.imagem');
+
+    imagens.forEach(divImagem => {
+        divImagem.addEventListener('click', function(e) {
+            e.stopPropagation();
+            
+            // Remove o foco para evitar que o CSS :focus atrapalhe
+            this.blur(); 
+            
+            const jaEstaAmpliada = this.classList.contains('ampliada');
+            
+            // Fecha todas as outras
+            document.querySelectorAll('.imagem.ampliada').forEach(img => {
+                img.classList.remove('ampliada');
+            });
+            
+            // Se não estava ampliada, abre a atual
+            if (!jaEstaAmpliada) {
+                this.classList.add('ampliada');
+            }
         });
+    });
 
-    } else {
-        // Fallback caso o navegador não suporte
-        btnRead.style.display = 'none';
-        btnStopRead.style.display = 'none';
-        console.warn('API SpeechSynthesis não suportada neste navegador.');
-    }
-});
+    // Fechar ao clicar em qualquer lugar
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.imagem.ampliada').forEach(img => {
+            img.classList.remove('ampliada');
+        });
+    });
 
-// EXIBIR COMENTÁRIO NA TELA AO ENVIAR
-document.querySelector('.interaction-section .btn-primary').addEventListener('click', function(event) {
-    event.preventDefault(); // Impede a página de recarregar e sumir com o texto
-
-    // 1. Pega o que o usuário digitou na área de texto
-    const campoTexto = document.getElementById('comentario');
-    const textoComentario = campoTexto.value.trim();
-
-    // 2. Se não estiver vazio, cria o comentário na tela
-    if (textoComentario !== "") {
-        const display = document.getElementById('comments-display');
-
-        // Cria uma caixinha para o novo comentário
-        const novoComentario = document.createElement('div');
-        novoComentario.style.background = 'rgba(255, 255, 255, 0.8)';
-        novoComentario.style.padding = '1rem';
-        novoComentario.style.borderRadius = '8px';
-        novoComentario.style.marginBottom = '1rem';
-        novoComentario.style.border = '1px solid var(--border-color)';
-        novoComentario.style.color = '#000';
-        
-        // Coloca o texto dentro dela
-        novoComentario.textContent = textoComentario;
-
-        // Adiciona a caixinha dentro do seu <div id="comments-display">
-        display.appendChild(novoComentario);
-
-        // Limpa a área de texto para o usuário digitar outro se quiser
-        campoTexto.value = "";
-    }
 });
