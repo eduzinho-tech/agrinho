@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         divImagem.addEventListener('click', function(e) {
             e.stopPropagation();
             
-            // Remove o foco para evitar que o CSS :focus atrapalhe
+            // Remove o foco para evitar que o CSS:focus atrapalhe
             this.blur(); 
             
             const jaEstaAmpliada = this.classList.contains('ampliada');
